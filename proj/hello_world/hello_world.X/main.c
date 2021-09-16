@@ -8,12 +8,84 @@
 #include "system.h"
 //#include "xc.h"
 
+#define TICKS (65535)
+
 int main(void)
 {
     unsigned int i;
     
+    /* Clock Control Logic:
+     * bit 14-12 COSC[2:0]: Current Oscillator Selection bits
+     *      111 = 8 MHz Fast RC Oscillator with Postscaler (FRCDIV)
+     *      110 = 500 kHz Low-Power Fast RC Oscillator (FRC) with Postscaler (LPFRCDIV)
+     *      101 = Low-Power RC Oscillator (LPRC)
+     *      100 = Secondary Oscillator (SOSC)
+     *      011 = Primary Oscillator with PLL module (XTPLL, HSPLL, ECPLL)
+     *      010 = Primary Oscillator (XT, HS, EC)
+     *      001 = 8 MHz FRC Oscillator with Postscaler and PLL module (FRCPLL)
+     *      000 = 8 MHz FRC Oscillator (FRC)
+     * bit 10-8 NOSC[2:0]: New Oscillator Selection bits(1)
+     *      111 = 8 MHz Fast RC Oscillator with Postscaler (FRCDIV)
+     *      110 = 500 kHz Low-Power Fast RC Oscillator (FRC) with Postscaler (LPFRCDIV)
+     *      101 = Low-Power RC Oscillator (LPRC)
+     *      100 = Secondary Oscillator (SOSC)
+     *      011 = Primary Oscillator with PLL module (XTPLL, HSPLL, ECPLL)
+     *      010 = Primary Oscillator (XT, HS, EC)
+     *      001 = 8 MHz FRC Oscillator with Postscaler and PLL module (FRCPLL)
+     *      000 = 8 MHz FRC Oscillator (FRC) 
+     */
+    OSCCONbits.NOSC0=0b001; // 0b111
+    
+    
+    /*
+     * bit 7 CLKLOCK: Clock Selection Lock Enable bit
+     *      If FSCM is Enabled (FCKSM1 = 1):
+     *      1 = Clock and PLL selections are locked
+     *      0 = Clock and PLL selections are not locked and may be modified by setting the OSWEN bit
+     *      If FSCM is Disabled (FCKSM1 = 0):
+     *      Clock and PLL selections are never locked and may be modified by setting the OSWEN bit.
+     *
+     * bit 5 LOCK: PLL Lock Status bit(2)
+     *      1 = PLL module is in lock or PLL module start-up timer is satisfied
+     *      0 = PLL module is out of lock, PLL start-up timer is running or PLL is disabled
+     * 
+     * bit 3 CF: Clock Fail Detect bit
+     *      1 = FSCM has detected a clock failure
+     *      0 = No clock failure has been detected
+     * 
+     * bit 2 SOSCDRV: Secondary Oscillator Drive Strength bit(3)
+     *      1 = High-power SOSC circuit is selected
+     *      0 = Low/high-power select is done via the SOSCSRC Configuration bit
+     * 
+     * bit 1 SOSCEN: 32 kHz Secondary Oscillator (SOSC) Enable bit
+     *      1 = Enables the Secondary Oscillator
+     *      0 = Disables the Secondary Oscillator
+     * 
+     * bit 0 OSWEN: Oscillator Switch Enable bit
+     *      1 = Initiates an oscillator switch to
+     *      0 = Oscillator switch is complete
+     */
+    
+    
+    //CLKDIVbits.DOZEN=0b1;
+    CLKDIVbits.RCDIV=4;
+    // REGISTER 9-2: CLKDIV: CLOCK DIVIDER REGISTER
+    //CLKDIVbits.DOZEN=0b1;
+    //CLKDIVbits.DOZE=0b010;
+    
+    
     // Set up output pin for LED
+    //    TRIS = 1: INPUT
+    //    TRIS = 0: OUTPUT
     TRISAbits.TRISA0 = 0;
+    TRISAbits.TRISA1 = 0;
+    //TRISAbits.TRISA3 = 0;
+    TRISBbits.TRISB10 = 0;
+    TRISBbits.TRISB11 = 0;
+    TRISBbits.TRISB12 = 0;
+    TRISBbits.TRISB13 = 0;
+    TRISBbits.TRISB14 = 0;
+    TRISBbits.TRISB15 = 0;
 
     while(1)
     {
@@ -25,16 +97,23 @@ int main(void)
         // To make the LED blink visibly, we have to wait a while between toggling
 
         // the LED pin.
-        for(i = 0; i < 65535; i++)
+        for(i = 0; i < TICKS; )
         {
-            Nop();
-            Nop();
-            Nop();
-            Nop();
+            i++;
         }
         
 
         // Toggle the LED output pin to alternate between the LED being on and off
         LATAbits.LATA0 ^= 1;
+        LATAbits.LATA1 ^= 1;
+        LATBbits.LATB10 ^= 1;
+        LATBbits.LATB11 ^= 1;
+        LATBbits.LATB12 ^= 1;
+        LATBbits.LATB13 ^= 1;
+        LATBbits.LATB14 ^= 1;
+        LATBbits.LATB15 ^= 1;
+        //LATAbits.LATA3 ^= 1;
+        // LATAbits.LATA4 ^= 1; // OSCILLATOR
+        // LATAbits.LATA7 ^= 1; // RESISTOR
     }
 }
