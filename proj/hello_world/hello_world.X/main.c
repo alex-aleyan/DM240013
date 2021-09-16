@@ -13,10 +13,7 @@
 int main(void)
 {
     unsigned int i;
-    
 
-    
-    
     /* OSCILLATOR DIVIDER CLKDIV[10-8] or CLKDIV.RCDIV[2-0] :
      * bit 14-12 DOZE[2:0]: CPU and Peripheral Clock Ratio Select bits
      *     111 = 1:128
@@ -101,6 +98,8 @@ int main(void)
     TRISAbits.TRISA0 = 0;
     TRISAbits.TRISA1 = 0;
     //TRISAbits.TRISA3 = 0;
+    TRISBbits.TRISB8 = 0;
+    TRISBbits.TRISB9 = 0;
     TRISBbits.TRISB10 = 0;
     TRISBbits.TRISB11 = 0;
     TRISBbits.TRISB12 = 0;
@@ -127,12 +126,16 @@ int main(void)
         // Toggle the LED output pin to alternate between the LED being on and off
         LATAbits.LATA0 ^= 1;
         LATAbits.LATA1 ^= 1;
+        
+        LATBbits.LATB8 ^= 1;
+        LATBbits.LATB9 ^= 1;
         LATBbits.LATB10 ^= 1;
         LATBbits.LATB11 ^= 1;
         LATBbits.LATB12 ^= 1;
         LATBbits.LATB13 ^= 1;
         LATBbits.LATB14 ^= 1;
         LATBbits.LATB15 ^= 1;
+                
         //LATAbits.LATA3 ^= 1;
         // LATAbits.LATA4 ^= 1; // OSCILLATOR
         // LATAbits.LATA7 ^= 1; // RESISTOR

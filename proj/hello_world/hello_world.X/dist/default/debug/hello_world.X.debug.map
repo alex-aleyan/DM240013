@@ -4,11 +4,11 @@ Tool Name:
   c:\program files\microchip\xc16\v1.70\bin\bin\..\bin/elf-ld.exe
 
 Command:
-  -TC:\\Users\\sasha\\AppData\\Local\\Temp\\tmp000045c8.00 \
-  -TC:\\Users\\sasha\\AppData\\Local\\Temp\\tmp000045c8.01 \
-  -TC:\\Users\\sasha\\AppData\\Local\\Temp\\tmp000045c8.02 \
-  -TC:\\Users\\sasha\\AppData\\Local\\Temp\\tmp000045c8.03 \
-  -TC:\\Users\\sasha\\AppData\\Local\\Temp\\tmp000045c8.04 \
+  -TC:\\Users\\sasha\\AppData\\Local\\Temp\\tmp00001398.00 \
+  -TC:\\Users\\sasha\\AppData\\Local\\Temp\\tmp00001398.01 \
+  -TC:\\Users\\sasha\\AppData\\Local\\Temp\\tmp00001398.02 \
+  -TC:\\Users\\sasha\\AppData\\Local\\Temp\\tmp00001398.03 \
+  -TC:\\Users\\sasha\\AppData\\Local\\Temp\\tmp00001398.04 \
   -p24FV16KM202 \
   --mdfp=C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC24F-KA-KL-KM_DFP/1.4.83/xc16 \
   -o \
@@ -95,9 +95,9 @@ Default Scalar Model: Small
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200                0xce           0x135  (309)
-.text                        0x2ce                0xf6           0x171  (369)
+.text                        0x2ce               0x12a           0x1bf  (447)
 
-                 Total "program" memory used (bytes):          0x2a6  (678) 4%
+                 Total "program" memory used (bytes):          0x2f4  (756) 4%
 
 
 "data" Memory  [Origin = 0x800, Length = 0x800]
@@ -249,12 +249,12 @@ usercode
 
 __FBS             0xf80000          0x2
  *(__FBS.sec*)
- __FBS.sec        0xf80000          0x2 /CW/_FBS
+ __FBS.sec        0xf80000          0x2 /CW/_FBSð—ì
                   0xf80000                  __FBS.sec
 
 __FGS             0xf80004          0x2
  *(__FGS.sec*)
- __FGS.sec        0xf80004          0x2 /CW/_FGS ÈÒ
+ __FGS.sec        0xf80004          0x2 /CW/_FGSà‡ì
                   0xf80004                  __FGS.sec
 
 __FOSCSEL
@@ -284,9 +284,9 @@ __FICD
  *(.debug_abbrev)
  .debug_abbrev    0x000000         0xc7 build/default/debug/main.o
 
-.debug_line       0x000000        0x12e
+.debug_line       0x000000        0x134
  *(.debug_line)
- .debug_line      0x000000        0x12e build/default/debug/main.o
+ .debug_line      0x000000        0x134 build/default/debug/main.o
 
 .debug_frame      0x000000         0x2e
  *(.debug_frame)
@@ -1081,8 +1081,8 @@ LOAD c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a
 LOAD c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\liblega-c-elf.a
 END GROUP
 OUTPUT(dist/default/debug/hello_world.X.debug.elf elf32-pic30)
-LOAD /CW/_FGS ÈÒ
-LOAD /CW/_FBS
+LOAD /CW/_FGSà‡ì
+LOAD /CW/_FBSð—ì
 LOAD default_isr
 
 .debug_pubtypes
@@ -1115,6 +1115,6 @@ __c30_signature
 .config_IESO      0xf80006          0x2
  .config_IESO     0xf80006          0x2 build/default/debug/main.o
 
-.text             0x0002ce         0xf6
- .text            0x0002ce         0xf6 build/default/debug/main.o
+.text             0x0002ce        0x12a
+ .text            0x0002ce        0x12a build/default/debug/main.o
                   0x0002ce                  _main
