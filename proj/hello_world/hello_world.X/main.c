@@ -14,16 +14,24 @@ int main(void)
 {
     unsigned int i;
     
-    /* Clock Control Logic:
-     * bit 14-12 COSC[2:0]: Current Oscillator Selection bits
-     *      111 = 8 MHz Fast RC Oscillator with Postscaler (FRCDIV)
-     *      110 = 500 kHz Low-Power Fast RC Oscillator (FRC) with Postscaler (LPFRCDIV)
-     *      101 = Low-Power RC Oscillator (LPRC)
-     *      100 = Secondary Oscillator (SOSC)
-     *      011 = Primary Oscillator with PLL module (XTPLL, HSPLL, ECPLL)
-     *      010 = Primary Oscillator (XT, HS, EC)
-     *      001 = 8 MHz FRC Oscillator with Postscaler and PLL module (FRCPLL)
-     *      000 = 8 MHz FRC Oscillator (FRC)
+
+    
+    
+    /* OSCILLATOR DIVIDER CLKDIV[10-8] or CLKDIV.RCDIV[2-0] :
+     * bit 14-12 DOZE[2:0]: CPU and Peripheral Clock Ratio Select bits
+     *     111 = 1:128
+     *     110 = 1:64
+     *     101 = 1:32
+     *     100 = 1:16
+     *     011 = 1:8
+     *     010 = 1:4
+     *     001 = 1:2
+     *     000 = 1:1    
+     */
+    CLKDIVbits.RCDIV=0;
+
+    
+    /* Clock Control Logic OSCCON[10-8] or OSCON.NOSC0[2:0] :
      * bit 10-8 NOSC[2:0]: New Oscillator Selection bits(1)
      *      111 = 8 MHz Fast RC Oscillator with Postscaler (FRCDIV)
      *      110 = 500 kHz Low-Power Fast RC Oscillator (FRC) with Postscaler (LPFRCDIV)
@@ -34,9 +42,7 @@ int main(void)
      *      001 = 8 MHz FRC Oscillator with Postscaler and PLL module (FRCPLL)
      *      000 = 8 MHz FRC Oscillator (FRC) 
      */
-    OSCCONbits.NOSC0=0b001; // 0b111
-    
-    
+    OSCCONbits.NOSC0=1; // 0b111
     /*
      * bit 7 CLKLOCK: Clock Selection Lock Enable bit
      *      If FSCM is Enabled (FCKSM1 = 1):
@@ -66,17 +72,32 @@ int main(void)
      *      0 = Oscillator switch is complete
      */
     
+    /* CPU/CLKO Post-Scaler CLKDIV[14-12] or CLKDIV.DOZE :
+     * bit 14-12 DOZE[2:0]: CPU and Peripheral Clock Ratio Select bits
+     *     111 = 1:128
+     *     110 = 1:64
+     *     101 = 1:32
+     *     100 = 1:16
+     *     011 = 1:8
+     *     010 = 1:4
+     *     001 = 1:2
+     *     000 = 1:1
+     * bit 11 DOZEN: Doze Enable bit(1)
+     *     1 = DOZE[2:0] bits specify the CPU and peripheral     
+     */
+    CLKDIVbits.DOZEN=0b1;
+    CLKDIVbits.DOZE=3;
     
-    //CLKDIVbits.DOZEN=0b1;
-    CLKDIVbits.RCDIV=4;
-    // REGISTER 9-2: CLKDIV: CLOCK DIVIDER REGISTER
-    //CLKDIVbits.DOZEN=0b1;
-    //CLKDIVbits.DOZE=0b010;
+    /* REFO Post-Scaler
+     * 
+     *  */
+    //REFOCONbits.
     
     
-    // Set up output pin for LED
-    //    TRIS = 1: INPUT
-    //    TRIS = 0: OUTPUT
+    /* Set up output pin for LED
+     *  TRIS = 1: INPUT
+     *  TRIS = 0: OUTPUT
+     */
     TRISAbits.TRISA0 = 0;
     TRISAbits.TRISA1 = 0;
     //TRISAbits.TRISA3 = 0;
