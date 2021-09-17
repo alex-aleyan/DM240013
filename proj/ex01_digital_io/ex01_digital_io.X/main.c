@@ -25,7 +25,7 @@ int main(void)
      *     001 = 1:2
      *     000 = 1:1    
      */
-    CLKDIVbits.RCDIV=0;
+    CLKDIVbits.RCDIV = 0;
 
     
     /* Clock Control Logic OSCCON[10-8] or OSCON.NOSC0[2:0] :
@@ -39,7 +39,7 @@ int main(void)
      *      001 = 8 MHz FRC Oscillator with Postscaler and PLL module (FRCPLL)
      *      000 = 8 MHz FRC Oscillator (FRC) 
      */
-    OSCCONbits.NOSC0=1; // 0b111
+    OSCCONbits.NOSC0 = 1; // 0b111
     /*
      * bit 7 CLKLOCK: Clock Selection Lock Enable bit
      *      If FSCM is Enabled (FCKSM1 = 1):
@@ -82,10 +82,10 @@ int main(void)
      * bit 11 DOZEN: Doze Enable bit(1)
      *     1 = DOZE[2:0] bits specify the CPU and peripheral   
      * 
-     * Description: Setting DOZE field slows down the CPU clock by the selected value.    
+     * Description: Setting DOZE field slows down the CPU clock by the selected value.  
      */
-    CLKDIVbits.DOZEN=1;
-    CLKDIVbits.DOZE=3;
+    CLKDIVbits.DOZEN = 1;
+    CLKDIVbits.DOZE  = 3; // slows down
     
     /* REFO Post-Scaler
      * 
@@ -98,16 +98,10 @@ int main(void)
      *  TRIS = 0: OUTPUT
      */
     TRISAbits.TRISA0 = 0;
-    TRISAbits.TRISA1 = 0;
-    //TRISAbits.TRISA3 = 0;
-    TRISBbits.TRISB8 = 0;
-    TRISBbits.TRISB9 = 0;
-    TRISBbits.TRISB10 = 0;
-    TRISBbits.TRISB11 = 0;
-    TRISBbits.TRISB12 = 0;
-    TRISBbits.TRISB13 = 0;
-    TRISBbits.TRISB14 = 0;
-    TRISBbits.TRISB15 = 0;
+    
+    /* Configure pin 26 as a digital INPUT*/
+    ANSBbits.ANSB15   = 0; // Digital input buffer is active (use as digital input)
+    TRISBbits.TRISB15 = 1; // configure pin 26 as INPUT 
 
     while(1)
     {
@@ -118,28 +112,15 @@ int main(void)
 
         // To make the LED blink visibly, we have to wait a while between toggling
 
-        // the LED pin.
-        for(i = 0; i < TICKS; )
-        {
-            i++;
-        }
+        if (PORTBbits.RB15 == 1){
+            // the LED pin.
+            for(i = 0; i < TICKS; ) i++;
+            for(i = 0; i < TICKS; ) i++;
         
 
-        // Toggle the LED output pin to alternate between the LED being on and off
-        LATAbits.LATA0 ^= 1;
-        LATAbits.LATA1 ^= 1;
-        
-        LATBbits.LATB8 ^= 1;
-        LATBbits.LATB9 ^= 1;
-        LATBbits.LATB10 ^= 1;
-        LATBbits.LATB11 ^= 1;
-        LATBbits.LATB12 ^= 1;
-        LATBbits.LATB13 ^= 1;
-        LATBbits.LATB14 ^= 1;
-        LATBbits.LATB15 ^= 1;
-                
-        //LATAbits.LATA3 ^= 1;
-        // LATAbits.LATA4 ^= 1; // OSCILLATOR
-        // LATAbits.LATA7 ^= 1; // RESISTOR
+            // Toggle the LED output pin to alternate between the LED being on and off
+            LATAbits.LATA0 ^= 1;
+        } 
+
     }
 }
