@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=hello_world.X
+PROJECTNAME=ex00_oscillators.X
 
 # Active Configuration
 DEFAULTCONF=default
