@@ -4,11 +4,11 @@ Tool Name:
   c:\program files\microchip\xc16\v1.70\bin\bin\..\bin/elf-ld.exe
 
 Command:
-  -TC:\\Users\\sasha\\AppData\\Local\\Temp\\tmp00001398.00 \
-  -TC:\\Users\\sasha\\AppData\\Local\\Temp\\tmp00001398.01 \
-  -TC:\\Users\\sasha\\AppData\\Local\\Temp\\tmp00001398.02 \
-  -TC:\\Users\\sasha\\AppData\\Local\\Temp\\tmp00001398.03 \
-  -TC:\\Users\\sasha\\AppData\\Local\\Temp\\tmp00001398.04 \
+  -TC:\\Users\\sasha\\AppData\\Local\\Temp\\tmp00002bfc.00 \
+  -TC:\\Users\\sasha\\AppData\\Local\\Temp\\tmp00002bfc.01 \
+  -TC:\\Users\\sasha\\AppData\\Local\\Temp\\tmp00002bfc.02 \
+  -TC:\\Users\\sasha\\AppData\\Local\\Temp\\tmp00002bfc.03 \
+  -TC:\\Users\\sasha\\AppData\\Local\\Temp\\tmp00002bfc.04 \
   -p24FV16KM202 \
   --mdfp=C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC24F-KA-KL-KM_DFP/1.4.83/xc16 \
   -o \
@@ -249,12 +249,12 @@ usercode
 
 __FBS             0xf80000          0x2
  *(__FBS.sec*)
- __FBS.sec        0xf80000          0x2 /CW/_FBSð—ì
+ __FBS.sec        0xf80000          0x2 /CW/_FBS@èÌ
                   0xf80000                  __FBS.sec
 
 __FGS             0xf80004          0x2
  *(__FGS.sec*)
- __FGS.sec        0xf80004          0x2 /CW/_FGSà‡ì
+ __FGS.sec        0xf80004          0x2 /CW/_FGS ÈÌ
                   0xf80004                  __FGS.sec
 
 __FOSCSEL
@@ -1081,8 +1081,8 @@ LOAD c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a
 LOAD c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\liblega-c-elf.a
 END GROUP
 OUTPUT(dist/default/debug/hello_world.X.debug.elf elf32-pic30)
-LOAD /CW/_FGSà‡ì
-LOAD /CW/_FBSð—ì
+LOAD /CW/_FGS ÈÌ
+LOAD /CW/_FBS@èÌ
 LOAD default_isr
 
 .debug_pubtypes
