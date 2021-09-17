@@ -120,6 +120,7 @@ int main(void)
 
             // Toggle the LED output pin to alternate between the LED being on and off
             LATAbits.LATA0 ^= 1;
+            //PORTAbits.RA0 ^= 1; // W/O non readable when set as OUTPUT
         } 
 
     }
