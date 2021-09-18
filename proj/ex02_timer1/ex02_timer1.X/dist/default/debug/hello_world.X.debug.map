@@ -4,15 +4,15 @@ Tool Name:
   c:\program files\microchip\xc16\v1.70\bin\bin\..\bin/elf-ld.exe
 
 Command:
-  -TC:\\Users\\sasha\\AppData\\Local\\Temp\\tmp000015fc.00 \
-  -TC:\\Users\\sasha\\AppData\\Local\\Temp\\tmp000015fc.01 \
-  -TC:\\Users\\sasha\\AppData\\Local\\Temp\\tmp000015fc.02 \
-  -TC:\\Users\\sasha\\AppData\\Local\\Temp\\tmp000015fc.03 \
-  -TC:\\Users\\sasha\\AppData\\Local\\Temp\\tmp000015fc.04 \
+  -TC:\\Users\\sasha\\AppData\\Local\\Temp\\tmp00002bfc.00 \
+  -TC:\\Users\\sasha\\AppData\\Local\\Temp\\tmp00002bfc.01 \
+  -TC:\\Users\\sasha\\AppData\\Local\\Temp\\tmp00002bfc.02 \
+  -TC:\\Users\\sasha\\AppData\\Local\\Temp\\tmp00002bfc.03 \
+  -TC:\\Users\\sasha\\AppData\\Local\\Temp\\tmp00002bfc.04 \
   -p24FV16KM202 \
   --mdfp=C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC24F-KA-KL-KM_DFP/1.4.83/xc16 \
   -o \
-  dist/default/debug/ex01_digital_io.X.debug.elf \
+  dist/default/debug/hello_world.X.debug.elf \
   -Lc:/program files/microchip/xc16/v1.70/bin/bin/.. \
   -LC:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC24F-KA-KL-KM_DFP/1.4.83/xc16/bin/../support/PIC24F/gld \
   -Lc:/program files/microchip/xc16/v1.70/bin/bin/../../lib \
@@ -40,7 +40,7 @@ Command:
   --stackguard=16 \
   --no-force-link \
   --smart-io \
-  -Map=dist/default/debug/ex01_digital_io.X.debug.map \
+  -Map=dist/default/debug/hello_world.X.debug.map \
   --report-mem \
   --memorysummary \
   dist/default/debug/memoryfile.xml \
@@ -95,9 +95,9 @@ Default Scalar Model: Small
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200                0xce           0x135  (309)
-.text                        0x2ce                0x62            0x93  (147)
+.text                        0x2ce               0x12a           0x1bf  (447)
 
-                 Total "program" memory used (bytes):          0x1c8  (456) 2%
+                 Total "program" memory used (bytes):          0x2f4  (756) 4%
 
 
 "data" Memory  [Origin = 0x800, Length = 0x800]
@@ -249,12 +249,12 @@ usercode
 
 __FBS             0xf80000          0x2
  *(__FBS.sec*)
- __FBS.sec        0xf80000          0x2 /CW/_FBS0‡Ñ
+ __FBS.sec        0xf80000          0x2 /CW/_FBS@èÌ
                   0xf80000                  __FBS.sec
 
 __FGS             0xf80004          0x2
  *(__FGS.sec*)
- __FGS.sec        0xf80004          0x2 /CW/_FGS ÷Ñ
+ __FGS.sec        0xf80004          0x2 /CW/_FGS ÈÌ
                   0xf80004                  __FGS.sec
 
 __FOSCSEL
@@ -275,26 +275,26 @@ __FICD
 .comment
  *(.comment)
 
-.debug_info       0x000000        0xba0
+.debug_info       0x000000        0x8ea
  *(.debug_info)
- .debug_info      0x000000        0xba0 build/default/debug/main.o
+ .debug_info      0x000000        0x8ea build/default/debug/main.o
  *(.gnu.linkonce.wi.*)
 
 .debug_abbrev     0x000000         0xc7
  *(.debug_abbrev)
  .debug_abbrev    0x000000         0xc7 build/default/debug/main.o
 
-.debug_line       0x000000        0x11e
+.debug_line       0x000000        0x134
  *(.debug_line)
- .debug_line      0x000000        0x11e build/default/debug/main.o
+ .debug_line      0x000000        0x134 build/default/debug/main.o
 
 .debug_frame      0x000000         0x2e
  *(.debug_frame)
  .debug_frame     0x000000         0x2e build/default/debug/main.o
 
-.debug_str        0x000000         0x46
+.debug_str        0x000000         0x3c
  *(.debug_str)
- .debug_str       0x000000         0x46 build/default/debug/main.o
+ .debug_str       0x000000         0x3c build/default/debug/main.o
 
 .debug_loc
  *(.debug_loc)
@@ -1080,24 +1080,24 @@ LOAD c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\liblega-pic30-elf.a
 LOAD c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a
 LOAD c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\liblega-c-elf.a
 END GROUP
-OUTPUT(dist/default/debug/ex01_digital_io.X.debug.elf elf32-pic30)
-LOAD /CW/_FGS ÷Ñ
-LOAD /CW/_FBS0‡Ñ
+OUTPUT(dist/default/debug/hello_world.X.debug.elf elf32-pic30)
+LOAD /CW/_FGS ÈÌ
+LOAD /CW/_FBS@èÌ
 LOAD default_isr
 
 .debug_pubtypes
-                  0x000018         0xf8
+                  0x000018         0xd9
  .debug_pubtypes
-                  0x000018         0xf8 build/default/debug/main.o
+                  0x000018         0xd9 build/default/debug/main.o
 
 __c30_signature
-                  0x000110         0x12
+                  0x0000f1         0x12
  __c30_signature
-                  0x000110          0x6 build/default/debug/main.o
+                  0x0000f1          0x6 build/default/debug/main.o
  __c30_signature
-                  0x000116          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\liblega-pic30-elf.a(crt0_standard.o)
+                  0x0000f7          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\liblega-pic30-elf.a(crt0_standard.o)
  __c30_signature
-                  0x00011c          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\liblega-pic30-elf.a(data_init_standard.o)
+                  0x0000fd          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\liblega-pic30-elf.a(data_init_standard.o)
 
 .config_ICS       0xf8000e          0x2
  .config_ICS      0xf8000e          0x2 build/default/debug/main.o
@@ -1115,6 +1115,6 @@ __c30_signature
 .config_IESO      0xf80006          0x2
  .config_IESO     0xf80006          0x2 build/default/debug/main.o
 
-.text             0x0002ce         0x62
- .text            0x0002ce         0x62 build/default/debug/main.o
+.text             0x0002ce        0x12a
+ .text            0x0002ce        0x12a build/default/debug/main.o
                   0x0002ce                  _main
