@@ -5,8 +5,10 @@
  * Created on July 4, 2021, 10:19 PM
  */
 
+#include <p24FV16KM202.h>
+
 #include "system.h"
-//#include "xc.h"
+#include "xc.h"
 
 #define TICKS (65535)
 
@@ -26,8 +28,6 @@ int main(void)
      *     000 = 1:1    
      */
     CLKDIVbits.RCDIV = 0;
-
-    
     /* Clock Control Logic OSCCON[10-8] or OSCON.NOSC0[2:0] :
      * bit 10-8 NOSC[2:0]: New Oscillator Selection bits(1)
      *      111 = 8 MHz Fast RC Oscillator with Postscaler (FRCDIV)
@@ -68,7 +68,6 @@ int main(void)
      *      1 = Initiates an oscillator switch to
      *      0 = Oscillator switch is complete
      */
-    
     /* CPU/CLKO Post-Scaler CLKDIV[14-12] or CLKDIV.DOZE :
      * bit 14-12 DOZE[2:0]: CPU and Peripheral Clock Ratio Select bits
      *     111 = 1:128
@@ -90,38 +89,79 @@ int main(void)
     /* REFO Post-Scaler
      * 
      *  */
-    //REFOCONbits.
+    // REFOCONbits.
     
     
     /* Set up output pin for LED
      *  TRIS = 1: INPUT
-     *  TRIS = 0: OUTPUT
-     */
+     *  TRIS = 0: OUTPUT */
     TRISAbits.TRISA0 = 0;
     
-    /* Configure pin 26 as a digital INPUT*/
+    
+    /* Configure pin 26 as a digital INPUT (Pushbuttone) */
     ANSBbits.ANSB15   = 0; // Digital input buffer is active (use as digital input)
     TRISBbits.TRISB15 = 1; // configure pin 26 as INPUT 
 
+    
+    
+    /* Timer 1  Interrupts:
+     * 
+     *  */
+    IFS0bits.T1IF = 0; //Clear the Timer1 interrupt status flag
+    IEC0bits.T1IE = 1; // Enable the Interrupt (no affect with Priority=0)
+    // SET PRIORITY to 0 to prevent the CPU from going into the Interrupt Routine
+    IPC0bits.T1IP = 0; // 
+    T1CONbits.TON = 0;
+    /* Timer1 configuration bits:
+     * 
+     * TCS: Timer1 Clock Source Select bit
+     * 1 = Timer1 clock source is selected by TECS[1:0]
+     * 0 = Internal clock (FOSC/2)
+     * 
+     *  */
+    T1CONbits.TCS = 0;
+        // T1CONbits.TECS = 2;
+    /* 
+     * TGATE: Timer1 Gated Time Accumulation Enable bit
+     *      When TCS = 1: 
+     *          This bit is ignored.
+     *      When TCS = 0:
+     *          1 = Gated time accumulation is enabled
+     *          0 = Gated time accumulation is disabled
+     *  */
+    T1CONbits.TGATE = 0;
+    /* 
+     * TCKPS[1:0]: Timer1 Input Clock Pre-scale Select bits:
+     *      11 = 1:256
+     *      10 = 1:64
+     *      01 = 1:8
+     *      00 = 1:1
+     *  */
+    T1CONbits.TCKPS = 2;
+    // Timer1 On bit
+    T1CONbits.TON = 1;
+    PR1  = 0xFFFF; // Set the timer period
+    TMR1 = 0x00;   // Reset the current timer value 
+    
+    
     while(1)
     {
-
-        // (insert your application code here)
-
-
-
-        // To make the LED blink visibly, we have to wait a while between toggling
-
+        // Hold down the PORTBbits.RB15 to blink the LED:
         if (PORTBbits.RB15 == 1){
-            // the LED pin.
-            for(i = 0; i < TICKS; ) i++;
-            for(i = 0; i < TICKS; ) i++;
-        
 
-            // Toggle the LED output pin to alternate between the LED being on and off
-            LATAbits.LATA0 ^= 1;
-            //PORTAbits.RA0 ^= 1; // W/O non readable when set as OUTPUT
+            if  ( IFS0bits.T1IF == 1 ) {
+            
+                // Toggle the LED output pin to alternate between the LED being on and off
+                LATAbits.LATA0 ^= 1;
+                //PORTAbits.RA0 ^= 1; // W/O non readable when set as OUTPUT
+            
+                TMR1 = 0;
+                IFS0bits.T1IF = 0;
+            }
+            
         } 
 
+        Nop();
+        
     }
 }
