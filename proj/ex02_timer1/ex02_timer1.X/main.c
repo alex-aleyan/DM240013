@@ -146,6 +146,9 @@ int main(void)
     
     while(1)
     {
+        
+        
+        
         // Hold down the PORTBbits.RB15 to blink the LED:
         if (PORTBbits.RB15 == 1){
 
@@ -158,10 +161,11 @@ int main(void)
                 TMR1 = 0;
                 IFS0bits.T1IF = 0;
             }
-            
+        } else {
+            LATAbits.LATA0 = 0;
         } 
 
-        Nop();
+        
         
     }
 }
